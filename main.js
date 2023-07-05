@@ -1,24 +1,18 @@
-/**
- * !!!!!!!!!!!!!!!!!!!!!!!!!!!
- * CHANGE REPLAY DIRECTORY HERE
- * !!!!!!!!!!!!!!!!!!!!!!!!!!!!
- */
-const replayDirectory = "/Documents/Slippi";
-/**
- * ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
- * CHANGE REPLAY DIRECTORY HERE
- * ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
- */
+"/Documents/Slippi";
+
 
 const client = require('discord-rich-presence')('1125092736404570123');
 const { SlippiGame } = require("@slippi/slippi-js");
 const chokidar = require("chokidar");
 const _ = require("lodash");
 const os = require("os");
+const fs = require ('fs');
+const ini = require('ini')
 
+var config = ini.decode(fs.readFileSync('./config.ini', 'utf-8'));
+var listenPath = os.homedir() + config.directories.replay_directory_from_home;
 
-const listenPath = os.homedir() + replayDirectory;
-let mode, stageId, stageKey, stageName, inGame, startTime, endTime, gameEnd;
+let mode, stageId, stageKey, stageName, startTime, endTime, gameEnd;
 
 console.log(`Listening at: ${listenPath}`);
 
@@ -126,11 +120,4 @@ watcher.on("change", (path) => {
     gameState.settings = settings;
     
   }
-
-
-
-  if (gameEnd) {
-    inGame = false;
-  }
-
 });
