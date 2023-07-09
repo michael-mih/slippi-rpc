@@ -6,13 +6,20 @@ const os = require("os");
 const fs = require ('fs');
 const ini = require('ini')
 
-var config = ini.decode(fs.readFileSync('./config.ini', 'utf-8'));
-var listenPath = os.homedir() + config.directories.replay_directory_from_home;
+//apply config
+try {
+  var config = ini.decode(fs.readFileSync('./config.ini', 'utf-8'));
+  var listenPath = os.homedir() + config.directories.replay_directory_from_home;
+} catch (error) {
+  console.log("No config found, using defaults...");
+  var listenPath = os.homedir() + "/Documents/Slippi";
+}
+
 
 let mode, stageId, stageKey, stageName, startTime, endTime, gameEnd;
 gameEnd = true;
 
-console.log(`Listening at: ${listenPath}`);
+console.log(`Listening for game at: ${listenPath}`);
 
 const watcher = chokidar.watch(listenPath, {
   ignored: "!*.slp", // TODO: This doesn't work. Use regex?
