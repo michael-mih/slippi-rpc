@@ -13,6 +13,7 @@ var config = ini.decode(fs.readFileSync('./config.ini', 'utf-8'));
 var listenPath = os.homedir() + config.directories.replay_directory_from_home;
 
 let mode, stageId, stageKey, stageName, startTime, endTime, gameEnd;
+gameEnd = true;
 
 console.log(`Listening at: ${listenPath}`);
 
@@ -36,6 +37,7 @@ setInterval(() => {
         return;     
     }
     switch(stageId){
+        //TODO more stages
         case 3:
             stageKey = "pokemonstadium";
             stageName = "Pokemon Stadium"
