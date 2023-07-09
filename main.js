@@ -1,6 +1,3 @@
-"/Documents/Slippi";
-
-
 const client = require('discord-rich-presence')('1125092736404570123');
 const { SlippiGame } = require("@slippi/slippi-js");
 const chokidar = require("chokidar");
