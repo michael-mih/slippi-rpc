@@ -1,4 +1,4 @@
-const client = require('discord-rich-presence')('1125092736404570123');
+let client;
 const { SlippiGame } = require("@slippi/slippi-js");
 const chokidar = require("chokidar");
 const _ = require("lodash");
@@ -13,9 +13,12 @@ try {
   var debug = config.display.show_debug_console;
   if(debug == 0){console.log = function() {}} else{console.log("Debug mode on, showing log")}
   var listenPath = os.homedir() + config.directories.replay_directory_from_home;
+  client = require('discord-rich-presence')(config.discord.application_id);
+  console.log(`Using Application ID ${config.discord.application_id}`);
 } catch (error) {
-  console.log("No config found, using defaults...");
+  console.log("No config found or config error, using defaults...");
   var listenPath = os.homedir() + "\\Documents\\Slippi";
+  client = require('discord-rich-presence')('1125092736404570123');
 }
 
 
