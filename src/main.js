@@ -5,14 +5,17 @@ const _ = require("lodash");
 const os = require("os");
 const fs = require ('fs');
 const ini = require('ini')
+const path = require('path')
 
 //apply config
 try {
-  var config = ini.decode(fs.readFileSync('./config.ini', 'utf-8'));
+  var config = ini.decode(fs.readFileSync(path.join(__dirname, "../.config/config.ini"), 'utf-8'));
+  var debug = config.display.show_debug_console;
+  if(debug == 0){console.log = function() {}} else{console.log("Debug mode on, showing log")}
   var listenPath = os.homedir() + config.directories.replay_directory_from_home;
 } catch (error) {
   console.log("No config found, using defaults...");
-  var listenPath = os.homedir() + "/Documents/Slippi";
+  var listenPath = os.homedir() + "\\Documents\\Slippi";
 }
 
 
@@ -124,6 +127,7 @@ watcher.on("change", (path) => {
     console.log(`[Game Start] New game has started`);
     stageId = settings.stageId;
     gameState.settings = settings;
+    
     
   }
 });
