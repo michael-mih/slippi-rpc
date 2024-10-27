@@ -29,7 +29,7 @@ console.log(`Listening for game at: ${listenPath}`);
 
 const watcher = chokidar.watch(listenPath, {
   ignored: "!*.slp", // TODO: This doesn't work. Use regex?
-  depth: 0,
+  depth: 1, // needs to be at least 1 if saving replays to monthly folders
   persistent: true,
   usePolling: true,
   ignoreInitial: true,
